@@ -132,7 +132,7 @@ LineEndConcatenation:
   Enabled: false
 
 LineLength:
-  Max: 80
+  Max: 100
 
 LiteralInCondition:
   Enabled: false
