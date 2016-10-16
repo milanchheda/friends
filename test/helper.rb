@@ -4,8 +4,11 @@ require "codeclimate-test-reporter"
 CodeClimate::TestReporter.start
 
 require "minitest/autorun"
+require "minitest/focus" # Enables easier development by using `focus` to run a single test easily.
+require "minitest/parallel_fork"
 require "minitest/pride"
 require "open3"
+require "securerandom"
 
 require "friends"
 
@@ -54,12 +57,12 @@ def subject; end
 
 def run_cmd(command)
   stdout, stderr, status = Open3.capture3(
-    "bundle exec bin/friends --filename #{filename} #{command}"
+    "bundle exec bin/friends --colorless --filename #{filename} #{command}"
   )
   {
     stdout: stdout,
     stderr: stderr,
-    status: status
+    status: status.exitstatus
   }
 end
 
@@ -78,14 +81,27 @@ def stdout_only(expected)
   subject[:status].must_equal 0
 end
 
+def stderr_only(expected)
+  subject[:stdout].must_equal ""
+  subject[:stderr].must_equal ensure_trailing_newline_unless_empty(expected)
+  subject[:status].must_be :>, 0
+end
+
 def file_equals(expected)
   subject
   File.read(filename).must_equal expected
 end
 
+def line_changed(expected_old, expected_new)
+  index = File.read(filename).split("\n").index(expected_old)
+  index.must_be_kind_of Numeric # Not nil, so we know that `expected_old` was found.
+  subject
+  File.read(filename).split("\n")[index].must_equal expected_new
+end
+
 def clean_describe(desc, *additional_desc, &block)
   describe desc, *additional_desc do
-    let(:filename) { "test/tmp/friends.md" }
+    let(:filename) { "test/tmp/friends#{SecureRandom.uuid}.md" }
     let(:content) { nil }
 
     before { File.write(filename, content) unless content.nil? }

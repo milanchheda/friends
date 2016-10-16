@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "./test/helper"
+require "minitest/focus"
 
 clean_describe "list friends" do
   subject { run_cmd("list friends") }
@@ -33,7 +34,7 @@ Grace Hopper
     end
 
     describe "--verbose" do
-      subject { run_cmd("--colorless list friends --verbose") }
+      subject { run_cmd("list friends --verbose") }
 
       it "lists friends in file order with details" do
         stdout_only <<-OUTPUT

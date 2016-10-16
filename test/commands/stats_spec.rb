@@ -30,7 +30,7 @@ Total time elapsed: 0 days
   describe "when file has stats" do
     let(:content) { CONTENT }
 
-    it "returns the stats" do
+    it "returns the content" do
       stdout_only <<-FILE
 Total activities: 4
 Total friends: 3

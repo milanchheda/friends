@@ -469,23 +469,6 @@ describe Friends::Introvert do
     end
   end
 
-  describe "#set_location" do
-    subject do
-      introvert.set_location(
-        name: friend_names.first,
-        location_name: locations.first.name
-      )
-    end
-
-    it "returns the modified friend" do
-      stub_friends(friends) do
-        stub_locations(locations) do
-          subject.must_equal friends.first
-        end
-      end
-    end
-  end
-
   describe "#add_nickname" do
     subject do
       introvert.add_nickname(name: friend_names.first, nickname: "The Dude")
@@ -586,67 +569,6 @@ describe Friends::Introvert do
             [Friends::Activity.new(str: "Swimming in _Atlantis_.")]
           ) do
             subject.must_equal ["Atlantis (1 activity)"]
-          end
-        end
-      end
-    end
-  end
-
-  describe "#suggest" do
-    subject { introvert.suggest(location_name: location_name) }
-
-    describe "when no location name is passed" do
-      let(:location_name) { nil }
-
-      it "returns distant, moderate, and close friends" do
-        stub_friends(friends) do
-          stub_activities(activities) do
-            subject.must_equal(
-              distant: ["George Washington Carver"],
-              moderate: [],
-              close: ["Betsy Ross"]
-            )
-          end
-        end
-      end
-
-      it "doesn't choke when there are no friends" do
-        stub_friends([]) do
-          stub_activities([]) do
-            subject.must_equal(
-              distant: [],
-              moderate: [],
-              close: []
-            )
-          end
-        end
-      end
-    end
-
-    describe "when a location name is passed" do
-      let(:location_name) { "USA" }
-
-      it "returns distant, moderate, and close friends" do
-        friends.first.location_name = location_name
-        stub_friends(friends) do
-          stub_activities(activities) do
-            subject.must_equal(
-              distant: ["George Washington Carver"],
-              moderate: [],
-              close: []
-            )
-          end
-        end
-      end
-
-      it "doesn't choke when there are no friends" do
-        stub_friends([]) do
-          stub_activities([]) do
-            subject.must_equal(
-              distant: [],
-              moderate: [],
-              close: []
-            )
           end
         end
       end
