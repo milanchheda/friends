@@ -45,10 +45,20 @@ Grace Hopper (a.k.a. The Admiral a.k.a. Amazing Grace) [Paris] @navy @science
     end
 
     describe "--in" do
-      subject { run_cmd("list friends --in paris") }
+      subject { run_cmd("list friends --in #{location_name}") }
 
-      it "matches location case-insensitively" do
-        stdout_only "Grace Hopper"
+      describe "when location does not exist" do
+        let(:location_name) { "Garbage" }
+        it "prints an error message" do
+          stderr_only 'Error: No location found for "Garbage"'
+        end
+      end
+
+      describe "when location exists" do
+        let(:location_name) { "paris" }
+        it "matches location case-insensitively" do
+          stdout_only "Grace Hopper"
+        end
       end
     end
 

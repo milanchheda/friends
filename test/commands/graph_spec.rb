@@ -41,10 +41,19 @@ Nov 2015 |█
     end
 
     describe "--in" do
-      subject { run_cmd("graph --in paris") }
+      subject { run_cmd("graph --in #{location_name}") }
 
-      it "matches location case-insensitively" do
-        stdout_only <<-OUTPUT
+      describe "when location does not exist" do
+        let(:location_name) { "Garbage" }
+        it "prints an error message" do
+          stderr_only 'Error: No location found for "Garbage"'
+        end
+      end
+
+      describe "when location exists" do
+        let(:location_name) { "paris" }
+        it "matches location case-insensitively" do
+          stdout_only <<-OUTPUT
 Nov 2014 |
 Dec 2014 |█
 Jan 2015 |
@@ -58,7 +67,41 @@ Aug 2015 |
 Sep 2015 |
 Oct 2015 |
 Nov 2015 |
-        OUTPUT
+          OUTPUT
+        end
+      end
+    end
+
+    describe "--with" do
+      subject { run_cmd("graph --with #{friend_name}") }
+
+      describe "when friend does not exist" do
+        let(:friend_name) { "Garbage" }
+        it "prints an error message" do
+          stderr_only 'Error: No friend found for "Garbage"'
+        end
+      end
+
+      describe "when friend exists" do
+        let(:friend_name) { "george" }
+
+        it "matches friend case-insensitively" do
+          stdout_only <<-OUTPUT
+Nov 2014 |█
+Dec 2014 |
+Jan 2015 |█
+Feb 2015 |
+Mar 2015 |
+Apr 2015 |
+May 2015 |
+Jun 2015 |
+Jul 2015 |
+Aug 2015 |
+Sep 2015 |
+Oct 2015 |
+Nov 2015 |
+          OUTPUT
+        end
       end
     end
 
@@ -80,28 +123,6 @@ Aug 2015 |
 Sep 2015 |
 Oct 2015 |
 Nov 2015 |█
-        OUTPUT
-      end
-    end
-
-    describe "--with" do
-      subject { run_cmd("graph --with george") }
-
-      it "matches friend case-insensitively" do
-        stdout_only <<-OUTPUT
-Nov 2014 |█
-Dec 2014 |
-Jan 2015 |█
-Feb 2015 |
-Mar 2015 |
-Apr 2015 |
-May 2015 |
-Jun 2015 |
-Jul 2015 |
-Aug 2015 |
-Sep 2015 |
-Oct 2015 |
-Nov 2015 |
         OUTPUT
       end
     end
