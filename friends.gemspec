@@ -25,7 +25,7 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency "chronic", "~> 0.10"
   spec.add_dependency "gli", "~> 2.12"
-  spec.add_dependency "memoist", "~> 0.14"
+  spec.add_dependency "memoist", "~> 0.15"
   spec.add_dependency "paint", "~> 1.0"
   spec.add_dependency "semverse", "~> 1.2"
 

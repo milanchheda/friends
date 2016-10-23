@@ -2,7 +2,7 @@
 
 require "./test/helper"
 
-clean_describe "stats" do
+clean_describe "set location" do
   subject { run_cmd("set location #{friend_name} #{location_name}") }
   let(:content) { CONTENT }
 
