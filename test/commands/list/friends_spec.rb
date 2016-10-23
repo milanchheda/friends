@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require "./test/helper"
-require "minitest/focus"
 
 clean_describe "list friends" do
   subject { run_cmd("list friends") }
@@ -46,9 +45,9 @@ Grace Hopper (a.k.a. The Admiral a.k.a. Amazing Grace) [Paris] @navy @science
     end
 
     describe "--in" do
-      subject { run_cmd("list friends --in Paris") }
+      subject { run_cmd("list friends --in paris") }
 
-      it "matches location case-sensitively" do
+      it "matches location case-insensitively" do
         stdout_only "Grace Hopper"
       end
     end
@@ -56,7 +55,7 @@ Grace Hopper (a.k.a. The Admiral a.k.a. Amazing Grace) [Paris] @navy @science
     describe "--tagged" do
       subject { run_cmd("list friends --tagged science") }
 
-      it "matches location case-insensitively" do
+      it "matches tag case-sensitively" do
         stdout_only <<-OUTPUT
 Marie Curie
 Grace Hopper
