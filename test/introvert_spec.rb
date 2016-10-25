@@ -169,18 +169,6 @@ describe Friends::Introvert do
     end
   end
 
-  describe "#add_nickname" do
-    subject do
-      introvert.add_nickname(name: friend_names.first, nickname: "The Dude")
-    end
-
-    it "returns the modified friend" do
-      stub_friends(friends) do
-        subject.must_equal friends.first
-      end
-    end
-  end
-
   describe "#add_tag" do
     subject do
       introvert.add_tag(name: friend_names.first, tag: "@school")
