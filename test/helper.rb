@@ -99,6 +99,14 @@ def line_changed(expected_old, expected_new)
   File.read(filename).split("\n")[index].must_equal expected_new
 end
 
+def line_added(expected)
+  n_initial_lines = File.read(filename).split("\n").size
+  subject
+  lines = File.read(filename).split("\n")
+  lines.index(expected).must_be_kind_of Numeric # Not nil, so we know that `expected` was found.
+  lines.size.must_equal(n_initial_lines + 1) # Line was added, not changed.
+end
+
 def clean_describe(desc, *additional_desc, &block)
   describe desc, *additional_desc do
     let(:filename) { "test/tmp/friends#{SecureRandom.uuid}.md" }

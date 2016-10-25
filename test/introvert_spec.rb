@@ -79,69 +79,6 @@ describe Friends::Introvert do
     end
   end
 
-  describe "#add_friend" do
-    let(:new_friend_name) { "Jacob Evelyn" }
-    subject { introvert.add_friend(name: new_friend_name) }
-
-    describe "when there is no existing friend with that name" do
-      it "adds the given friend" do
-        stub_friends(friends) do
-          subject
-          introvert.
-            instance_variable_get(:@friends).
-            map(&:name).
-            must_include new_friend_name
-        end
-      end
-
-      it "returns the friend added" do
-        stub_friends(friends) do
-          subject.name.must_equal new_friend_name
-        end
-      end
-    end
-
-    describe "when there is an existing friend with that name" do
-      let(:new_friend_name) { friend_names.first }
-
-      it "raises an error" do
-        stub_friends(friends) do
-          proc { subject }.must_raise Friends::FriendsError
-        end
-      end
-    end
-  end
-
-  describe "#add_location" do
-    let(:new_location_name) { "Peru" }
-    subject { introvert.add_location(name: new_location_name) }
-
-    describe "when there is no existing location with that name" do
-      it "adds the given location" do
-        stub_locations(locations) do
-          subject
-          introvert.list_locations.must_include new_location_name
-        end
-      end
-
-      it "returns the location added" do
-        stub_locations(locations) do
-          subject.name.must_equal new_location_name
-        end
-      end
-    end
-
-    describe "when there is an existing location with that name" do
-      let(:new_location_name) { locations.first.name }
-
-      it "raises an error" do
-        stub_locations(locations) do
-          proc { subject }.must_raise Friends::FriendsError
-        end
-      end
-    end
-  end
-
   describe "#add_activity" do
     let(:activity_serialization) { "2014-01-01: Snorkeling with Betsy." }
     let(:activity_description) { "Snorkeling with **Betsy Ross**." }
