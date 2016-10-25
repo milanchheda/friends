@@ -32,6 +32,22 @@ clean_describe "rename friend" do
       line_changed "- George Washington Carver", "- George Washington"
     end
 
+    it "updates friend name in activities" do
+      run_cmd("list activities")[:stdout].must_equal <<-FILE
+2015-11-01: Grace Hopper and I went to Marie's Diner. George had to cancel at the last minute. @food
+2015-01-04: Got lunch with Grace Hopper and George Washington Carver. @food
+2014-12-31: Celebrated the new year in Paris with Marie Curie. @partying
+2014-11-15: Talked to George Washington Carver on the phone for an hour.
+      FILE
+      subject
+      run_cmd("list activities")[:stdout].must_equal <<-FILE
+2015-11-01: Grace Hopper and I went to Marie's Diner. George had to cancel at the last minute. @food
+2015-01-04: Got lunch with Grace Hopper and George Washington. @food
+2014-12-31: Celebrated the new year in Paris with Marie Curie. @partying
+2014-11-15: Talked to George Washington on the phone for an hour.
+      FILE
+    end
+
     it "prints an output message" do
       stdout_only 'Name changed: "George Washington"'
     end
