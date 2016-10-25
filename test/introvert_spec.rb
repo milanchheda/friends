@@ -142,16 +142,6 @@ describe Friends::Introvert do
     end
   end
 
-  describe "#list_locations" do
-    subject { introvert.list_locations }
-
-    it "lists all locations" do
-      stub_locations(locations) do
-        subject.must_equal locations.map(&:name)
-      end
-    end
-  end
-
   describe "#list_activities" do
     subject do
       introvert.list_activities(
