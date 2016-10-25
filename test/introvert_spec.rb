@@ -105,38 +105,4 @@ describe Friends::Introvert do
       end
     end
   end
-
-  describe "#add_tag" do
-    subject do
-      introvert.add_tag(name: friend_names.first, tag: "@school")
-    end
-
-    it "returns the modified friend" do
-      stub_friends(friends) do
-        subject.must_equal friends.first
-      end
-    end
-
-    describe "when more than one friend name matches" do
-      let(:friend_names) { ["George Washington Carver", "George Washington"] }
-
-      describe "when one friend name matches exactly" do
-        it "returns the modified friend" do
-          stub_friends(friends) do
-            subject.must_equal friends.first
-          end
-        end
-      end
-
-      describe "when no friend name matches exactly" do
-        it "raises an error" do
-          proc do
-            stub_friends(friends) do
-              introvert.add_tag(name: "George", tag: "@school")
-            end
-          end.must_raise Friends::FriendsError
-        end
-      end
-    end
-  end
 end
