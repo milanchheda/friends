@@ -531,22 +531,6 @@ describe Friends::Introvert do
     end
   end
 
-  describe "#list_favorite_friends" do
-    subject { introvert.list_favorite_friends(limit: limit) }
-
-    describe "when there are more friends than favorites requested" do
-      let(:limit) { 1 }
-
-      it "returns the number of favorites requested" do
-        stub_friends(friends) do
-          stub_activities(activities) do
-            subject.must_equal ["Betsy Ross (2 activities)"]
-          end
-        end
-      end
-    end
-  end
-
   describe "#list_favorite_locations" do
     subject { introvert.list_favorite_locations(limit: limit) }
 
