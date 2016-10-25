@@ -252,19 +252,6 @@ describe Friends::Introvert do
     end
   end
 
-  describe "#remove_nickname" do
-    subject do
-      introvert.remove_nickname(name: "Jeff", nickname: "The Dude")
-    end
-
-    it "returns the modified friend" do
-      friend = Friends::Friend.new(name: "Jeff", nickname_str: "The Dude")
-      stub_friends([friend]) do
-        subject.must_equal friend
-      end
-    end
-  end
-
   describe "#add_tag" do
     subject do
       introvert.add_tag(name: friend_names.first, tag: "@school")
