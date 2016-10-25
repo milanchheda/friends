@@ -47,6 +47,18 @@ clean_describe "remove tag" do
       it "prints an output message" do
         stdout_only 'Tag removed from friend: "Marie Curie [Atlantis]"'
       end
+
+      describe "when tag is passed with @" do
+        let(:tag) { "@science" }
+
+        it "adds tag to friend" do
+          line_changed "- Marie Curie [Atlantis] @science", "- Marie Curie [Atlantis]"
+        end
+
+        it "prints an output message" do
+          stdout_only 'Tag removed from friend: "Marie Curie [Atlantis]"'
+        end
+      end
     end
   end
 end

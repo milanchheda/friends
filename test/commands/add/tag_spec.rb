@@ -2,8 +2,6 @@
 
 require "./test/helper"
 
-# TODO: In this and other tests with tags, test that @ and no-@ work the same!
-
 clean_describe "add tag" do
   subject { run_cmd("add tag #{friend_name} #{tag}") }
 
