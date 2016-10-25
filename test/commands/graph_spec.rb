@@ -82,7 +82,16 @@ Nov 2015 |
         end
       end
 
-      describe "when friend exists" do
+      describe "when friend name matches more than one friend" do
+        let(:friend_name) { "george" }
+        it "prints an error message" do
+          run_cmd("add friend George Harrison")
+          stderr_only 'Error: More than one friend found for "george": '\
+                      "George Harrison, George Washington Carver"
+        end
+      end
+
+      describe "when friend name matches one friend" do
         let(:friend_name) { "george" }
 
         it "matches friend case-insensitively" do

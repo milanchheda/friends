@@ -36,7 +36,6 @@ Your favorite friends:
 
       describe "when limit is less than 1" do
         let(:limit) { 0 }
-
         it "prints an error message" do
           stderr_only "Error: Favorites limit must be positive"
         end
@@ -44,7 +43,6 @@ Your favorite friends:
 
       describe "when limit is 1" do
         let(:limit) { 1 }
-
         it "outputs as a best friend" do
           stdout_only "Your best friend is George Washington Carver (2 activities)"
         end
@@ -52,7 +50,6 @@ Your favorite friends:
 
       describe "when limit is greater than 1" do
         let(:limit) { 2 }
-
         it "limits output to the number specified" do
           stdout_only <<-OUTPUT
 Your favorite friends:
