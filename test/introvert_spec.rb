@@ -169,23 +169,6 @@ describe Friends::Introvert do
     end
   end
 
-  describe "#rename_friend" do
-    let(:new_name) { "David Bowie" }
-    subject do
-      introvert.rename_friend(old_name: friend_names.last, new_name: new_name)
-    end
-
-    it "replaces old name within activities to the new name" do
-      stub_friends(friends) do
-        stub_activities(activities) do
-          subject
-          introvert.activities.first.description.must_include new_name
-          introvert.activities.last.description.must_include new_name
-        end
-      end
-    end
-  end
-
   describe "#rename_location" do
     subject do
       introvert.rename_location(old_name: old_name, new_name: new_name)
