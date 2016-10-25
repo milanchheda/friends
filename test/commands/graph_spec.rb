@@ -84,8 +84,8 @@ Nov 2015 |
 
       describe "when friend name matches more than one friend" do
         let(:friend_name) { "george" }
+        before { run_cmd("add friend George Harrison") }
         it "prints an error message" do
-          run_cmd("add friend George Harrison")
           stderr_only 'Error: More than one friend found for "george": '\
                       "George Harrison, George Washington Carver"
         end

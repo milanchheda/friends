@@ -298,17 +298,4 @@ describe Friends::Introvert do
       end
     end
   end
-
-  describe "#remove_tag" do
-    subject do
-      introvert.remove_tag(name: "Jeff", tag: "@school")
-    end
-
-    it "returns the modified friend" do
-      friend = Friends::Friend.new(name: "Jeff", tags_str: "@school")
-      stub_friends([friend]) do
-        subject.must_equal friend
-      end
-    end
-  end
 end
